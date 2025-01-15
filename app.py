@@ -7,6 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 from googletrans import Translator
 
+
 # Configure NLTK data path
 os.environ['NLTK_DATA'] = '/tmp/nltk_data'
 

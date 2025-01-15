@@ -11,7 +11,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 os.environ['NLTK_DATA'] = '/tmp/nltk_data'
+import asyncio
 from googletrans import Translator
+
+translator = Translator()   
+
+async def translate_text(text, target_lang='en'):
+    translator = Translator()
+    translated = await asyncio.to_thread(translator.translate, text, dest=target_lang)
+    return translated.text
+
 
 
 # Fonctions pour lire les fichiers
@@ -150,6 +159,11 @@ def get_pivot_similarity(pivot_texts, target_texts, pivot_filenames, target_file
 
 # Fonction pour traduire le texte
 def translate_text(text, target_lang='en'):
-    translator = Translator()
-    translated = translator.translate(text, dest=target_lang)
-    return translated.text
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        translated = loop.run_until_complete(translator.translate(text, dest=target_lang))
+        return translated.text
+    except Exception as e:
+        st.error(f"Erreur lors de la traduction : {str(e)}")
+        return text
