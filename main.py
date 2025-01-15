@@ -10,7 +10,7 @@ from nltk import tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import os
-os.environ['NLTK_DATA'] = 'C:/Users/MBOZOO/AppData/Roaming/nltk_data'
+os.environ['NLTK_DATA'] = '/tmp/nltk_data'
 from googletrans import Translator
 
 

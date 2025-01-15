@@ -8,7 +8,7 @@ import os
 from googletrans import Translator
 
 # Configure NLTK data path
-os.environ['NLTK_DATA'] = 'C:/Users/MBOZOO/AppData/Roaming/nltk_data'
+os.environ['NLTK_DATA'] = '/tmp/nltk_data'
 
 # Import database-related functions
 from main import (
