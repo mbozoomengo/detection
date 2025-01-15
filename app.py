@@ -119,26 +119,17 @@ elif choice == "Consulter les Documents":
 elif choice == "À propos":
     st.title("📝 À propos")
     st.write("""
-        **PlagDetect** est une application conçue pour détecter le plagiat entre différents documents en analysant leurs contenus et en identifiant les similarités. Que vous soyez étudiant, enseignant, chercheur ou professionnel, cet outil offre une solution pratique et efficace pour garantir l'authenticité de vos travaux.
-        
-        ### Objectifs clés :
-        - **Précision** : Détection fiable des similarités entre documents.
-        - **Rapidité** : Analyse optimisée pour des résultats rapides, même sur de grands ensembles de données.
-        - **Évolutivité** : Capacité à gérer des ensembles variés et de grande taille.
-        - **Adaptabilité** : Compatibilité avec différents formats de documents, tels que PDF, Word ou texte brut.
+        **PlagDetect** est une application conçue pour détecter le plagiat entre différents documents en analysant leurs contenus et en identifiant les similarités.
         
         ### Fonctionnalités principales :
-        - **Comparaison de deux documents** : Évalue à quel point un document est "inspiré" d'un autre en donnant un pourcentage de similarité.
+        - **Comparaison de deux ou plusieurs documents** : Évalue à quel point un document est "inspiré" d'un autre en donnant un pourcentage de similarité.
         - **Analyse de plusieurs documents** : Regroupe les documents par niveaux de similarité détectée.
         - **Interface utilisateur intuitive** : Une interface conviviale qui facilite le téléchargement et l'analyse de vos documents.
-        - **Support multi-formats** : Compatible avec divers formats de fichiers (.docx, .pdf, et .txt.)
-        - **Comparaison de documents dans différentes langues** : La fonctionnalité peut comparer des documents rédigés dans différentes langues, garantissant la détection de similarités même si les textes sont dans des langues distinctes.
+        - **Support multi-formats** : Prends en charge divers formats de fichiers (.docx, .pdf, et .txt.)
+        - **Comparaison de documents dans différentes langues** : Capacité à comparer des documents rédigés dans différentes langues.
         
-        ### Notre Mission
-        Notre objectif est de fournir une solution simple et efficace pour détecter le plagiat, permettant ainsi à nos utilisateurs de produire des travaux de haute qualité et de maintenir des normes élevées d'éthique.
-        
-        ### Notre Équipe
-        PlagDetect est développé par une équipe d'Ingénieur en Informatique et Systèmes d'Informations.
+        ### Notre Équipe :
+        **PlagDetect** est développé par une équipe d'Ingénieurs en Informatique et Systèmes d'Informations.
         
         **Merci d'avoir choisi PlagDetect !**
     """)
