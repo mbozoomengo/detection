@@ -1,4 +1,3 @@
-#app.py
 import streamlit as st
 import pandas as pd
 import nltk
@@ -6,15 +5,15 @@ nltk.download('punkt')
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 from googletrans import Translator
-
+import asyncio
 
 # Configure NLTK data path
 os.environ['NLTK_DATA'] = '/tmp/nltk_data'
 
 # Import database-related functions
 from main import (
-    clear_database, create_tables, delete_file, get_all_files, 
-    get_pivot_similarity, get_sentences, get_similarity, 
+    clear_database, create_tables, delete_file, get_all_files,
+    get_pivot_similarity, get_sentences, get_similarity,
     get_text_from_file, insert_file, translate_text
 )
 
@@ -64,7 +63,7 @@ elif choice == "Vérifier les Similitudes":
         if pivot_file:
             text = get_text_from_file(pivot_file)
             # Traduction en anglais
-            text = translate_text(text, target_lang='en')
+            text = asyncio.run(translate_text(text, target_lang='en'))
             pivot_texts.append(text)
             pivot_filenames.append(pivot_file.name)
             insert_file(pivot_file.name, text)
@@ -74,7 +73,7 @@ elif choice == "Vérifier les Similitudes":
         if target_file:
             text = get_text_from_file(target_file)
             # Traduction en anglais
-            text = translate_text(text, target_lang='en')
+            text = asyncio.run(translate_text(text, target_lang='en'))
             target_texts.append(text)
             target_filenames.append(target_file.name)
             insert_file(target_file.name, text)
@@ -88,8 +87,6 @@ elif choice == "Vérifier les Similitudes":
         df = pd.DataFrame(similarities, columns=['Fichier Pivot', 'Fichier Cible', 'Similarité (%)'])
         df = df.sort_values(by=['Similarité (%)'], ascending=False)
         st.dataframe(df)
-
-        
 
 elif choice == "Consulter les Documents":
     st.title(":open_file_folder: Consulter les Documents Enregistrés")
@@ -121,17 +118,17 @@ elif choice == "À propos":
     st.title("📝 À propos")
     st.write("""
         **PlagDetect** est une application conçue pour détecter le plagiat entre différents documents en analysant leurs contenus et en identifiant les similarités.
-        
+
         ### Fonctionnalités principales :
         - **Comparaison de deux ou plusieurs documents** : Évalue à quel point un document est "inspiré" d'un autre en donnant un pourcentage de similarité.
         - **Analyse de plusieurs documents** : Regroupe les documents par niveaux de similarité détectée.
         - **Interface utilisateur intuitive** : Une interface conviviale qui facilite le téléchargement et l'analyse de vos documents.
         - **Support multi-formats** : Prends en charge divers formats de fichiers (.docx, .pdf, et .txt.)
         - **Comparaison de documents dans différentes langues** : Capacité à comparer des documents rédigés dans différentes langues.
-        
+
         ### Notre Équipe :
         **PlagDetect** est développé par une équipe d'Ingénieurs en Informatique et Systèmes d'Informations.
-        
+
         **Merci d'avoir choisi PlagDetect !**
     """)
 

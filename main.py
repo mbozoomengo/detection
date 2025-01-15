@@ -1,4 +1,3 @@
-#main.py
 import docx2txt
 from PyPDF2 import PdfReader
 import sqlite3
@@ -14,14 +13,11 @@ os.environ['NLTK_DATA'] = '/tmp/nltk_data'
 import asyncio
 from googletrans import Translator
 
-translator = Translator()   
+translator = Translator()
 
 async def translate_text(text, target_lang='en'):
-    translator = Translator()
     translated = await asyncio.to_thread(translator.translate, text, dest=target_lang)
     return translated.text
-
-
 
 # Fonctions pour lire les fichiers
 def read_text_file(file):
@@ -34,7 +30,6 @@ def read_text_file(file):
         except Exception as e:
             st.error(f"Impossible de lire le fichier {file.name} : {str(e)}")
     return content
-
 
 def read_docx_file(file):
     return docx2txt.process(file)
@@ -99,7 +94,7 @@ def insert_file(filename, content):
     # Vérifiez si le fichier existe déjà
     cursor.execute("SELECT id FROM files WHERE filename = ?", (filename,))
     existing_file = cursor.fetchone()
-    
+
     if existing_file:
         # Si le fichier existe, on le met à jour avec le nouveau contenu
         cursor.execute("UPDATE files SET content = ? WHERE filename = ?", (content, filename))
@@ -110,10 +105,8 @@ def insert_file(filename, content):
         cursor.execute("INSERT INTO files (filename, content) VALUES (?, ?)", (filename, content))
         conn.commit() #
         # st.success(f"Le fichier {filename} a été ajouté avec succès.")
-    
+
     conn.close()
-
-
 
 # Fonction pour récupérer tous les fichiers
 def get_all_files():
@@ -131,8 +124,7 @@ def delete_file(file_id):
     cursor.execute("DELETE FROM files WHERE id = ?", (file_id,))
     conn.commit()
     conn.close()
-    
-    
+
 # Fonction pour vider la base de données
 def clear_database():
     try:
@@ -146,7 +138,6 @@ def clear_database():
         st.error(f"Une erreur est survenue lors du vidage de la base de données : {str(e)}")
         return False
 
-
 # Fonction pour comparer les fichiers pivots et cibles et retourner les similarités
 def get_pivot_similarity(pivot_texts, target_texts, pivot_filenames, target_filenames):
     similarity_list = []
@@ -155,15 +146,3 @@ def get_pivot_similarity(pivot_texts, target_texts, pivot_filenames, target_file
             similarity = get_similarity(pivot_text, target_text)
             similarity_list.append((pivot_filenames[i], target_filenames[j], similarity))
     return similarity_list
-
-
-# Fonction pour traduire le texte
-def translate_text(text, target_lang='en'):
-    try:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        translated = loop.run_until_complete(translator.translate(text, dest=target_lang))
-        return translated.text
-    except Exception as e:
-        st.error(f"Erreur lors de la traduction : {str(e)}")
-        return text
