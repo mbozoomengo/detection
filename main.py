@@ -15,11 +15,24 @@ from googletrans import Translator
 
 translator = Translator()
 
+# Fonction asynchrone pour traduire le texte
 async def translate_text(text, target_lang='en'):
     # Utilisation de asyncio.to_thread pour effectuer la traduction dans un thread séparé
     translated = await asyncio.to_thread(translator.translate, text, dest=target_lang)
     return translated.text
 
+# Fonction principale qui gère l'appel de la traduction
+async def main(text):
+    translated_text = await translate_text(text, target_lang='en')
+    return translated_text
+
+# Partie exécutée lorsque le script est lancé
+if __name__ == "__main__":
+    # Exemple de texte à traduire
+    text = "Bonjour tout le monde"
+    # Exécute la fonction main et attend le résultat de la traduction
+    translated_text = asyncio.run(main(text))
+    print(f"Texte traduit : {translated_text}")
 
 # Fonctions pour lire les fichiers
 def read_text_file(file):
