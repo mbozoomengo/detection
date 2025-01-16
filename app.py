@@ -61,21 +61,21 @@ elif choice == "Vérifier les Similitudes":
     for pivot_file in pivot_files:
         if pivot_file:
             text = get_text_from_file(pivot_file)
-            # Traduction en anglais
-            text = asyncio.run(translate_text(text, target_lang='en'))
-            pivot_texts.append(text)
-            pivot_filenames.append(pivot_file.name)
-            insert_file(pivot_file.name, text)
+            # # Traduction en anglais
+            # text = asyncio.run(translate_text(text, target_lang='en'))
+            # pivot_texts.append(text)
+            # pivot_filenames.append(pivot_file.name)
+            # insert_file(pivot_file.name, text)
 
     target_texts, target_filenames = [], []
     for target_file in target_files:
         if target_file:
             text = get_text_from_file(target_file)
-            # Traduction en anglais
-            text = asyncio.run(translate_text(text, target_lang='en'))
-            target_texts.append(text)
-            target_filenames.append(target_file.name)
-            insert_file(target_file.name, text)
+            # # Traduction en anglais
+            # text = asyncio.run(translate_text(text, target_lang='en'))
+            # target_texts.append(text)
+            # target_filenames.append(target_file.name)
+            # insert_file(target_file.name, text)
 
     if st.button('Vérifier les similitudes entre les fichiers'):
         if not pivot_texts or not target_texts:
